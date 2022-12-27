@@ -1,5 +1,6 @@
+use std::convert::identity;
 use std::i8;
-
+use std::collections::HashMap;
 fn main() {
     // variable
     let unsigned: u32 = 10;
@@ -69,11 +70,6 @@ fn main() {
     }
 
     //  Struct
-
-  
-
-   
-
     let cat = Cat {
         name: String::from("Maxiwiliam"),
         _type: String::from("Maincone"),
@@ -86,15 +82,91 @@ fn main() {
 
     // Enum
     let a: Type = Type::A(2);
+    let b: Type = Type::zulfikra;
+
     println!("Zulfikra {:?} ", a);
-  
+    println!("My name is {:?}", b);
+    // print!("Hello {}", let Type::A(val))
+    if let Type::A(val) = a {
+        println!("hello {}", val)
+    }
+
+    // Vectr || Dynamic Array
+    let mut vec: Vec<i64> = vec![1,2,3,4,5];
+    vec.push(20);
+    println!("This is vector dynamic array {:?}", vec);
+    println!("Length of vector {:?} ", vec.len());
+
+    // Hashing map
+    let mut map = HashMap::new();
+        map.insert("nama", "Zulfikra");
+        // map.insert("nama", "Lahmudin");
+        map.insert("umur", "27");
+        
+    match map.get(&"nama") {
+        Some(str) => {
+            println!("Hello {} this is hash map", str)
+        },
+        None => {
+            println!("Oppss, there is not data here {}","");
+        }
+    }
+    map.remove(&"nama");
+    println!("Show all map  {:?}", map);
+    println!("Map first value {:?}", map.get("nama"));
+
+    // Option
+    match  devide(10, 2) {
+        Some(val) => println!(" Devide result {}", val),
+        None => println!("Nothing has printed") 
+    }
+
+    let deviden_value = devide(10, 3);
+    println!("Deviden result {:?}", deviden_value);
+    println!("Deviden result {:?}", deviden_value.unwrap());
+
+    // Result
+    // almost same with option but it returns Ok and error
+
+    let identity: Result<&str, &str> = identified("mantap");
+    match identity {
+        Ok(val) => println!("You are {}", val),
+        Err(val) => println!("{}", val)
+    }
+
+    if identity.is_ok() {
+        println!("Yess you are my {} ", identity.unwrap())
+    }else {
+        println!("Upss you are not my zulfikra");
+    }
+
+    // identity.unwrap();
+    identity.expect("Upss expect happen");
 }
 
+
+fn devide(devidend: i32, divisor: i32) -> Option<i32> {
+    if devidend % divisor  == 0 {
+        None
+    }else {
+        Some(devidend / divisor)
+    }
+}
+
+
+fn identified(name: &str) -> Result<&str, &str> {
+    if name == "zulfikra" {
+        Ok("Zulfikra")
+    }else {
+        Err("You are not Zulfikra")
+    }
+}
 
 //enum
 #[derive(Debug)]
 enum Type {
-    A(i8)
+    A(i8),
+    zulfikra
 }
 
 struct Cat {
